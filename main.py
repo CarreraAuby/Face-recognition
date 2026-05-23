@@ -1,49 +1,11 @@
-# main.py
-# Tugas Project Aljabar Linear - Face Recognition
-# Nama: [Nama Kamu]
-# NIM : [NIM Kamu]
-#
-# File ini adalah file UTAMA yang dijalankan pertama kali.
-# File ini menghubungkan semua bagian:
-#   - src/trainer.py      -> training model
-#   - src/recognizer.py   -> pencocokan wajah
-#   - src/cache_manager.py -> simpan & load model
-#
-# Cara menjalankan:
-#   python main.py
-#
-# Struktur folder project:
-#   project_eigenface/
-#   ├── main.py              <- FILE INI (jalankan ini)
-#   ├── dataset/             <- folder dataset
-#   └── src/
-#       ├── __init__.py
-#       ├── preprocessing.py
-#       ├── dataset_loader.py
-#       ├── eigenface.py
-#       ├── distance.py
-#       ├── cache_manager.py
-#       ├── trainer.py
-#       └── recognizer.py
-
 from src.trainer import training
 from src.recognizer import kenali_wajah
 from src.cache_manager import simpan_model, load_model, cek_cache_ada, hapus_cache
 
-
-# ============================================================
-# PENGATURAN - UBAH SESUAI KEBUTUHAN
-# ============================================================
-
-DATASET_FOLDER   = "dataset"   # nama folder dataset kamu
-JUMLAH_KOMPONEN  = 50          # jumlah eigenface (30-100 disarankan)
-THRESHOLD        = 8000        # batas jarak pencocokan
-CACHE_FILE       = "model_cache.pkl"  # nama file cache
-
-
-# ============================================================
-# FUNGSI UTAMA
-# ============================================================
+DATASET_FOLDER   = "dataset"  
+JUMLAH_KOMPONEN  = 50          
+THRESHOLD        = 8000        
+CACHE_FILE       = "model_cache.pkl"  
 
 def jalankan_training(paksa_ulang=False):
     """
@@ -111,11 +73,6 @@ def jalankan_pencocokan(model, test_image_path):
 
     return hasil
 
-
-# ============================================================
-# JALANKAN PROGRAM
-# ============================================================
-
 if __name__ == "__main__":
 
     print("=" * 50)
@@ -123,21 +80,12 @@ if __name__ == "__main__":
     print("Tugas Aljabar Linear")
     print("=" * 50)
 
-    # -------------------------------------------------------
-    # STEP 1: Training (atau load dari cache)
-    # -------------------------------------------------------
-    # Ganti paksa_ulang=True kalau mau training ulang dari awal
-    # (misalnya kalau dataset sudah diupdate)
     model = jalankan_training(paksa_ulang=False)
 
     if model is None:
         print("\nProgram berhenti karena training gagal.")
         exit()
 
-    # -------------------------------------------------------
-    # STEP 2: Contoh pencocokan wajah
-    # -------------------------------------------------------
-    # Pakai gambar pertama dari dataset sebagai contoh test
     contoh_gambar = model['image_paths'][0]
     label_asli    = model['labels'][0]
 
@@ -148,9 +96,6 @@ if __name__ == "__main__":
 
     hasil = jalankan_pencocokan(model, contoh_gambar)
 
-    # -------------------------------------------------------
-    # STEP 3: Info untuk anggota GUI (orang ke-2)
-    # -------------------------------------------------------
     print(f"\n{'='*50}")
     print("INFO UNTUK ANGGOTA GUI:")
     print(f"{'='*50}")
