@@ -1,22 +1,4 @@
-# eigenface.py  (versi dalam folder src)
-# Tugas Project Aljabar Linear - Face Recognition
-# Nama: [Nama Kamu]
-# NIM : [NIM Kamu]
-# Bagian: Algoritma Inti Eigenface
-#
-# File ini berisi semua perhitungan matematika inti:
-# - Mean face
-# - Covariance matrix
-# - Eigenvalue & Eigenvector (MANUAL - tidak pakai library)
-# - Pembentukan Eigenface
-# - Proyeksi gambar
-
 import numpy as np
-
-
-# =============================================================
-# BAGIAN A - MEAN FACE
-# =============================================================
 
 def hitung_mean_face(images):
     """
@@ -80,14 +62,9 @@ def hitung_covariance_matrix(centered_images):
     Return:
         C : covariance matrix shape (N, N)
     """
-    A = centered_images          # shape: (N, D)
-    C = np.dot(A, A.T)           # shape: (N, N)
+    A = centered_images          
+    C = np.dot(A, A.T)           
     return C
-
-
-# =============================================================
-# BAGIAN C - EIGENVALUE & EIGENVECTOR (MANUAL - WAJIB)
-# =============================================================
 
 def normalisasi_vektor(v):
     """
@@ -134,9 +111,7 @@ def power_iteration(matrix, max_iter=500, toleransi=1e-8):
     MANUAL - tidak pakai numpy.linalg atau sejenisnya
     """
     n = matrix.shape[0]
-
-    # mulai dari vektor random yang sudah di-seed
-    # seed(42) supaya hasilnya sama setiap kali dijalankan
+    
     np.random.seed(42)
     b = np.random.rand(n)
     b = normalisasi_vektor(b)
@@ -144,19 +119,12 @@ def power_iteration(matrix, max_iter=500, toleransi=1e-8):
     eigenvalue_lama = 0.0
 
     for iterasi in range(max_iter):
-        # langkah 1: kalikan matrix dengan vektor
         b_baru = np.dot(matrix, b)
-
-        # langkah 2: hitung eigenvalue pakai Rayleigh quotient
-        # lambda = b^T * A * b  (b sudah ternormalisasi jadi penyebut = 1)
+        
         eigenvalue = np.dot(b, b_baru)
-
-
-        # langkah 3: normalisasi vektor baru
+        
         b_baru = normalisasi_vektor(b_baru)
-
-        # langkah 4: hitung selisih vektor lama vs baru
-        # kalau selisihnya sudah sangat kecil = konvergen = berhenti
+        
         selisih = np.linalg.norm(b_baru - b)
 
         b = b_baru
@@ -166,7 +134,6 @@ def power_iteration(matrix, max_iter=500, toleransi=1e-8):
 
         eigenvalue_lama = eigenvalue
 
-    # hitung eigenvalue final yang lebih akurat
     b_hasil = np.dot(matrix, b)
     eigenvalue_final = 0.0
     for i in range(n):
@@ -195,9 +162,7 @@ def deflasi_matrix(matrix, eigenvalue, eigenvector):
 
     MANUAL - tidak pakai library
     """
-    
-    # np.outer melakukan hal yang sama persis
-    # tapi jauh lebih cepat karena dioptimasi di level C
+  
     outer = np.outer(eigenvector, eigenvector)
     matrix_baru = matrix - eigenvalue * outer
     return matrix_baru
@@ -221,7 +186,6 @@ def hitung_eigenvectors(cov_matrix, jumlah_komponen):
     eigenvalues  = []
     eigenvectors = []
 
-    # copy supaya matrix asli tidak berubah
     M = cov_matrix.copy().astype(float)
 
     print(f"  Menghitung {jumlah_komponen} eigenvector...")
@@ -236,17 +200,11 @@ def hitung_eigenvectors(cov_matrix, jumlah_komponen):
         eigenvalues.append(eigenval)
         eigenvectors.append(eigenvec)
 
-        # deflasi: hapus pengaruh eigenvector yang baru ditemukan
         M = deflasi_matrix(M, eigenval, eigenvec)
 
     print(f"  Selesai! {jumlah_komponen} eigenvector berhasil dihitung.")
 
     return np.array(eigenvalues), np.array(eigenvectors)
-
-
-# =============================================================
-# BAGIAN D - BENTUK EIGENFACE & PROYEKSI
-# =============================================================
 
 def bentuk_eigenfaces(centered_images, eigenvectors_kecil):
     """
@@ -271,17 +229,14 @@ def bentuk_eigenfaces(centered_images, eigenvectors_kecil):
     eigenfaces = []
 
     for v in eigenvectors_kecil:
-        # A^T shape: (D, N)
-        # v shape: (N,)
-        # hasil: (D,)
+       
         ef = np.dot(centered_images.T, v)
 
-        # normalisasi
         ef = normalisasi_vektor(ef)
 
         eigenfaces.append(ef)
 
-    return np.array(eigenfaces)  # shape: (k, D)
+    return np.array(eigenfaces)  
 
 
 def proyeksi_gambar(centered_images, eigenfaces):
@@ -303,6 +258,5 @@ def proyeksi_gambar(centered_images, eigenfaces):
     Return:
         koordinat : array shape (N, k)
     """
-    # (N, D) dot (D, k) = (N, k)
     koordinat = np.dot(centered_images, eigenfaces.T)
     return koordinat
