@@ -1,29 +1,7 @@
-# cache_manager.py
-# Tugas Project Aljabar Linear - Face Recognition
-# Nama: [Nama Kamu]
-# NIM : [NIM Kamu]
-# Bagian: Cache Manager (Simpan & Load Hasil Training)
-#
-# File ini berisi fungsi untuk menyimpan dan memuat hasil training.
-#
-# MASALAH TANPA CACHE:
-#   Setiap kali program dibuka -> training ulang dari awal -> lama!
-#
-# SOLUSI DENGAN CACHE:
-#   Training pertama  -> simpan hasil ke file .pkl
-#   Training berikutnya -> langsung load dari file .pkl -> cepat!
-#
-# Ilustrasi:
-#   Tanpa cache: buka program -> tunggu 5 menit training -> bisa pakai
-#   Dengan cache: buka program -> load 3 detik -> langsung bisa pakai
-
 import pickle
 import os
 
-
-# nama file cache default
 CACHE_FILE = "model_cache.pkl"
-
 
 def simpan_model(model, nama_file=CACHE_FILE):
     """
@@ -46,7 +24,6 @@ def simpan_model(model, nama_file=CACHE_FILE):
         simpan_model(model, "backup_model.pkl")
     """
     try:
-        # 'wb' = write binary (tulis dalam format biner)
         with open(nama_file, 'wb') as f:
             pickle.dump(model, f)
 
@@ -77,14 +54,12 @@ def load_model(nama_file=CACHE_FILE):
         model = load_model()
         model = load_model("backup_model.pkl")
     """
-    # cek dulu file-nya ada atau tidak
     if not os.path.exists(nama_file):
         print(f"File cache '{nama_file}' tidak ditemukan.")
         print(f"Perlu training dulu sebelum bisa load model.")
         return None
 
     try:
-        # 'rb' = read binary (baca dalam format biner)
         with open(nama_file, 'rb') as f:
             model = pickle.load(f)
 
