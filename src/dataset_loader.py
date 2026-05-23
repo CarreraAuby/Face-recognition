@@ -1,12 +1,3 @@
-# dataset_loader.py
-# Tugas Project Aljabar Linear - Face Recognition
-# Nama: [Nama Kamu]
-# NIM : [NIM Kamu]
-# Bagian: Dataset Loader
-#
-# File ini khusus untuk membaca dan memuat semua gambar
-# dari folder dataset ke dalam bentuk array numpy.
-
 import numpy as np
 import os
 from .preprocessing import preprocessing_gambar, get_img_size
@@ -42,39 +33,32 @@ def load_images_from_folder(dataset_folder):
     labels      = []
     image_paths = []
 
-    # --- cek folder ada atau tidak ---
     if not os.path.exists(dataset_folder):
         print(f"ERROR: Folder '{dataset_folder}' tidak ditemukan!")
         print(f"Pastikan folder dataset ada di lokasi yang benar.")
         return None, None, None
 
-    # --- list semua subfolder ---
     subfolders = sorted(os.listdir(dataset_folder))
     print(f"Ditemukan {len(subfolders)} item di folder dataset")
 
     for person_name in subfolders:
         person_path = os.path.join(dataset_folder, person_name)
 
-        # skip kalau bukan folder (misal ada file .txt dll)
         if not os.path.isdir(person_path):
             continue
 
-        # baca semua file di folder orang ini
         file_list = os.listdir(person_path)
         count = 0
 
         for filename in file_list:
-            # hanya proses file gambar
             ext = filename.lower().split('.')[-1]
             if ext not in ['jpg', 'jpeg', 'png', 'bmp']:
                 continue
 
             full_path = os.path.join(person_path, filename)
 
-            # panggil fungsi preprocessing dari preprocessing.py
             vektor = preprocessing_gambar(full_path)
 
-            # kalau berhasil, masukkan ke list
             if vektor is not None:
                 images.append(vektor)
                 labels.append(person_name)
@@ -84,7 +68,6 @@ def load_images_from_folder(dataset_folder):
         if count > 0:
             print(f"  {person_name}: {count} gambar")
 
-    # --- cek apakah ada gambar yang berhasil dibaca ---
     if len(images) == 0:
         print("ERROR: Tidak ada gambar yang berhasil dibaca!")
         print("Cek apakah format gambar sudah benar (jpg/png/bmp)")
