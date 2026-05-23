@@ -1,12 +1,3 @@
-# trainer.py
-# Tugas Project Aljabar Linear - Face Recognition
-# Nama: [Nama Kamu]
-# NIM : [NIM Kamu]
-# Bagian: Training
-#
-# File ini berisi fungsi training utama yang menggabungkan
-# semua langkah dari load gambar sampai proyeksi eigenface.
-
 from .dataset_loader import load_images_from_folder
 from .eigenface import (
     hitung_mean_face,
@@ -62,9 +53,6 @@ def training(dataset_folder, jumlah_komponen=50):
     print("MEMULAI PROSES TRAINING")
     print("=" * 50)
 
-    # -----------------------------------------------
-    # LANGKAH 1: Load gambar
-    # -----------------------------------------------
     print("\n[1/7] Loading gambar dari dataset...")
     images, labels, image_paths = load_images_from_folder(dataset_folder)
 
@@ -72,53 +60,34 @@ def training(dataset_folder, jumlah_komponen=50):
         print("Training gagal! Periksa folder dataset.")
         return None
 
-    N = len(images)         # jumlah total gambar
-    D = images.shape[1]     # panjang vektor (100x100 = 10000)
+    N = len(images)         
+    D = images.shape[1]     
     print(f"      {N} gambar, {D} pixel per gambar")
 
-    # sesuaikan jumlah komponen supaya tidak melebihi jumlah gambar
     if jumlah_komponen >= N:
         jumlah_komponen = N - 1
         print(f"      jumlah_komponen disesuaikan menjadi {jumlah_komponen}")
 
-    # -----------------------------------------------
-    # LANGKAH 2: Hitung mean face
-    # -----------------------------------------------
     print("\n[2/7] Menghitung mean face...")
     mean_face = hitung_mean_face(images)
     print(f"      Selesai. Shape: {mean_face.shape}")
 
-    # -----------------------------------------------
-    # LANGKAH 3: Kurangi mean
-    # -----------------------------------------------
     print("\n[3/7] Normalisasi (kurangi mean)...")
     centered = kurangi_mean(images, mean_face)
     print(f"      Selesai. Shape: {centered.shape}")
 
-    # -----------------------------------------------
-    # LANGKAH 4: Covariance matrix
-    # -----------------------------------------------
     print("\n[4/7] Menghitung covariance matrix...")
     cov_matrix = hitung_covariance_matrix(centered)
     print(f"      Selesai. Shape: {cov_matrix.shape} ({N}x{N})")
 
-    # -----------------------------------------------
-    # LANGKAH 5: Eigenvector (ini yang paling lama)
-    # -----------------------------------------------
     print(f"\n[5/7] Menghitung {jumlah_komponen} eigenvector (butuh waktu)...")
     eigenvalues, eigenvectors_kecil = hitung_eigenvectors(cov_matrix, jumlah_komponen)
     print(f"      Selesai.")
 
-    # -----------------------------------------------
-    # LANGKAH 6: Bentuk eigenface
-    # -----------------------------------------------
     print("\n[6/7] Membentuk eigenface...")
     eigenfaces = bentuk_eigenfaces(centered, eigenvectors_kecil)
     print(f"      Selesai. Shape: {eigenfaces.shape}")
 
-    # -----------------------------------------------
-    # LANGKAH 7: Proyeksi semua training image
-    # -----------------------------------------------
     print("\n[7/7] Memproyeksikan training images...")
     proyeksi = proyeksi_gambar(centered, eigenfaces)
     print(f"      Selesai. Shape: {proyeksi.shape}")
@@ -127,7 +96,6 @@ def training(dataset_folder, jumlah_komponen=50):
     print("TRAINING SELESAI!")
     print("=" * 50)
 
-    # kumpulkan semua hasil ke dalam dictionary
     model = {
         'mean_face'       : mean_face,
         'eigenfaces'      : eigenfaces,
