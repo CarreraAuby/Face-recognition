@@ -21,25 +21,20 @@ class FaceRecognitionApp(ctk.CTk):
         self.image_path = ""
         self.model = None
 
-        # TITLE
         self.title_label = ctk.CTkLabel(
             self, text="Face Recognition System", font=("Arial", 28, "bold")
         )
         self.title_label.pack(pady=20)
 
-        # MAIN FRAME
         self.main_frame = ctk.CTkFrame(self)
         self.main_frame.pack(fill="both", expand=True, padx=20, pady=10)
 
-        # LEFT FRAME
         self.left_frame = ctk.CTkFrame(self.main_frame, width=300)
         self.left_frame.pack(side="left", fill="y", padx=15, pady=15)
 
-        # RIGHT FRAME
         self.right_frame = ctk.CTkFrame(self.main_frame)
         self.right_frame.pack(side="right", fill="both", expand=True, padx=15, pady=15)
 
-        # DATASET BUTTON
         self.dataset_button = ctk.CTkButton(
             self.left_frame, text="Choose Dataset Folder",
             command=self.choose_dataset, height=45, font=("Arial", 15, "bold")
@@ -51,7 +46,6 @@ class FaceRecognitionApp(ctk.CTk):
         )
         self.dataset_label.pack(pady=(0, 20), padx=20)
 
-        # TRAIN BUTTON
         self.train_button = ctk.CTkButton(
             self.left_frame, text="Train Model", command=self.run_training,
             height=45, font=("Arial", 15, "bold"),
@@ -64,7 +58,6 @@ class FaceRecognitionApp(ctk.CTk):
         )
         self.train_status.pack(pady=(0, 10), padx=20)
 
-        # IMAGE BUTTON
         self.image_button = ctk.CTkButton(
             self.left_frame, text="Upload Test Image",
             command=self.choose_image, height=45, font=("Arial", 15, "bold")
@@ -76,7 +69,6 @@ class FaceRecognitionApp(ctk.CTk):
         )
         self.image_label.pack(pady=(0, 20), padx=20)
 
-        # RECOGNIZE BUTTON
         self.recognize_button = ctk.CTkButton(
             self.left_frame, text="Recognize Face", command=self.recognize_face,
             height=50, font=("Arial", 16, "bold"),
@@ -84,7 +76,6 @@ class FaceRecognitionApp(ctk.CTk):
         )
         self.recognize_button.pack(pady=20, padx=20, fill="x")
 
-        # RESULT AREA
         self.result_title = ctk.CTkLabel(
             self.left_frame, text="Recognition Result", font=("Arial", 18, "bold")
         )
@@ -96,9 +87,6 @@ class FaceRecognitionApp(ctk.CTk):
         self.result_text.pack(padx=20, pady=10)
         self.result_text.insert("0.0", "Result will appear here...")
 
-        # =====================================
-        # RIGHT FRAME - COMPARISON AREA
-        # =====================================
         self.preview_title = ctk.CTkLabel(
             self.right_frame, text="Face Comparison", font=("Arial", 20, "bold")
         )
@@ -107,7 +95,6 @@ class FaceRecognitionApp(ctk.CTk):
         self.compare_frame = ctk.CTkFrame(self.right_frame, fg_color="transparent")
         self.compare_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # Kolom kiri - foto test
         self.col_test = ctk.CTkFrame(self.compare_frame)
         self.col_test.pack(side="left", fill="both", expand=True, padx=10)
 
@@ -124,7 +111,6 @@ class FaceRecognitionApp(ctk.CTk):
         )
         self.label_test_name.pack(pady=5)
 
-        # Kolom tengah - VS + persentase
         self.col_mid = ctk.CTkFrame(self.compare_frame, fg_color="transparent", width=90)
         self.col_mid.pack(side="left", fill="y", padx=5)
         self.col_mid.pack_propagate(False)
@@ -144,7 +130,6 @@ class FaceRecognitionApp(ctk.CTk):
         )
         self.status_icon.place(relx=0.5, rely=0.65, anchor="center")
 
-        # Kolom kanan - foto match
         self.col_match = ctk.CTkFrame(self.compare_frame)
         self.col_match.pack(side="left", fill="both", expand=True, padx=10)
 
@@ -161,18 +146,12 @@ class FaceRecognitionApp(ctk.CTk):
         )
         self.label_match_name.pack(pady=5)
 
-    # =====================================
-    # CHOOSE DATASET
-    # =====================================
     def choose_dataset(self):
         folder_selected = filedialog.askdirectory()
         if folder_selected:
             self.dataset_path = folder_selected
             self.dataset_label.configure(text=f"Dataset Selected:\n{folder_selected}")
 
-    # =====================================
-    # CHOOSE IMAGE
-    # =====================================
     def choose_image(self):
         file_path = filedialog.askopenfilename(
             filetypes=[("Image Files", "*.png *.jpg *.jpeg")]
@@ -183,9 +162,6 @@ class FaceRecognitionApp(ctk.CTk):
             self.image_label.configure(text=f"Image Selected:\n{filename}")
             self.display_test_image(file_path)
 
-    # =====================================
-    # RUN TRAINING
-    # =====================================
     def run_training(self):
         if not self.dataset_path:
             self.show_result("Pilih dataset folder dulu!")
@@ -208,9 +184,6 @@ class FaceRecognitionApp(ctk.CTk):
         except Exception as e:
             self.show_result(f"Error saat training:\n{str(e)}")
 
-    # =====================================
-    # DISPLAY TEST IMAGE
-    # =====================================
     def display_test_image(self, image_path):
         image = Image.open(image_path)
         image.thumbnail((280, 320))
@@ -219,9 +192,6 @@ class FaceRecognitionApp(ctk.CTk):
         self.image_test_preview.image = photo
         self.label_test_name.configure(text=os.path.basename(image_path), text_color="white")
 
-    # =====================================
-    # DISPLAY MATCH IMAGE
-    # =====================================
     def display_match_image(self, image_path, label):
         try:
             image = Image.open(image_path)
@@ -233,18 +203,12 @@ class FaceRecognitionApp(ctk.CTk):
         except Exception:
             self.image_match_preview.configure(image=None, text="Gambar tidak ditemukan")
 
-    # =====================================
-    # HITUNG PERSENTASE KEMIRIPAN
-    # =====================================
     def hitung_similarity(self, jarak, threshold):
         if jarak <= 0:
             return 100.0
         persen = max(0.0, (1 - (jarak / threshold)) * 100)
         return round(persen, 1)
 
-    # =====================================
-    # RECOGNIZE FUNCTION
-    # =====================================
     def recognize_face(self):
         if not self.dataset_path:
             self.show_result("Pilih dataset folder dulu!")
@@ -294,17 +258,10 @@ class FaceRecognitionApp(ctk.CTk):
         except Exception as e:
             self.show_result(f"Error:\n{str(e)}")
 
-    # =====================================
-    # SHOW RESULT
-    # =====================================
     def show_result(self, message):
         self.result_text.delete("0.0", "end")
         self.result_text.insert("0.0", message)
 
-
-# ==========================================
-# RUN APPLICATION
-# ==========================================
 if __name__ == "__main__":
     app = FaceRecognitionApp()
     app.mainloop()
