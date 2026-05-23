@@ -1,15 +1,3 @@
-# distance.py
-# Tugas Project Aljabar Linear - Face Recognition
-# Nama: [Nama Kamu]
-# NIM : [NIM Kamu]
-# Bagian: Perhitungan Jarak
-#
-# File ini khusus berisi fungsi perhitungan jarak Euclidean.
-# Jarak Euclidean dipakai untuk mengukur "seberapa mirip"
-# dua wajah setelah diproyeksikan ke ruang eigenface.
-# Semakin kecil jaraknya = semakin mirip.
-
-
 def euclidean_distance(vektor1, vektor2):
     """
     Hitung jarak Euclidean antara dua vektor koordinat.
@@ -41,19 +29,17 @@ def euclidean_distance(vektor1, vektor2):
 
     MANUAL - tidak pakai scipy.spatial.distance atau sejenisnya
     """
-    # pastikan panjang kedua vektor sama
+    
     if len(vektor1) != len(vektor2):
         print("ERROR: panjang vektor berbeda!")
         return float('inf')
 
     total = 0.0
 
-    # hitung kuadrat selisih tiap elemen, lalu jumlahkan
     for i in range(len(vektor1)):
         selisih = vektor1[i] - vektor2[i]
         total += selisih * selisih
 
-    # akar kuadrat dari total jumlah
     jarak = total ** 0.5
 
     return jarak
