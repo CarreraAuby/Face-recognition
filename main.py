@@ -19,12 +19,10 @@ def jalankan_training(paksa_ulang=False):
                       pakai ini kalau dataset sudah diupdate
     """
 
-    # cek apakah perlu training ulang
     if paksa_ulang and cek_cache_ada(CACHE_FILE):
         print("Menghapus cache lama karena paksa_ulang=True...")
         hapus_cache(CACHE_FILE)
 
-    # kalau cache sudah ada, langsung load
     if cek_cache_ada(CACHE_FILE):
         print("Cache ditemukan! Loading model dari cache...")
         print("(Tidak perlu training ulang)")
