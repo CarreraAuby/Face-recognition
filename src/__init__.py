@@ -1,12 +1,3 @@
-# __init__.py
-# File ini menandakan bahwa folder src adalah "paket" Python
-# Dengan file ini, file lain bisa import dari folder src
-# Contoh: from src.trainer import training
-#
-# Tugas Project Aljabar Linear - Face Recognition
-# Nama: [Nama Kamu]
-# NIM : [NIM Kamu]
-
 from .preprocessing import preprocessing_gambar
 from .dataset_loader import load_images_from_folder
 from .eigenface import (
