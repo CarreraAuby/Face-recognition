@@ -2,7 +2,7 @@
   <img src="Logo uns.png" alt="Logo UNS" width="250"/>
 </p>
 
-<h1 align="center">  Face Recognition — Eigenface Method</h1>
+<h1 align="center">  Face Recognition pada Eigenface </h1>
 
 <p align="center">
   <strong>Kelompok 2 <br> informatika D <br> Universitas Sebelas Maret</strong>
