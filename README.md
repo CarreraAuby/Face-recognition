@@ -1,8 +1,8 @@
 <p align="center">
   <img src="Logo uns.png" alt="Logo UNS" width="250"/>
 </p>
-Projek Aljabar Linear
-<h1 align="center"> Projek Aljabar Linear
+
+<h1 align="center"> Projek Aljabar Linear </space>
   Face Recognition — Eigenface Method</h1>
 
 <p align="center">
