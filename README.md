@@ -33,12 +33,6 @@ project_eigenface/
 ├── gui.py                   # Antarmuka grafis (CustomTkinter)
 ├── model_cache.pkl          # Cache model hasil training (auto-generated)
 ├── dataset/                 # Folder dataset wajah
-│   ├── Nama_Orang_1/
-│   │   ├── foto1.jpg
-│   │   └── foto2.jpg
-│   └── Nama_Orang_2/
-│       ├── foto1.jpg
-│       └── foto2.jpg
 └── src/
     ├── __init__.py          # Penanda paket Python, ekspor semua fungsi
     ├── preprocessing.py     # Grayscale + resize 100×100 + flatten
