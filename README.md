@@ -45,3 +45,72 @@ project_eigenface/
 ```
 
 ---
+⚙️ Instalasi
+1. Download / Clone project
+bashgit clone https://github.com/username/project_eigenface.git
+cd project_eigenface
+2. Install dependencies
+bashpip install customtkinter pillow numpy opencv-python
+3. Siapkan dataset
+Buat folder dataset/ dengan struktur berikut — nama subfolder = nama orang:
+dataset/
+├── Nama_Orang_1/
+│   ├── foto1.jpg
+│   └── foto2.jpg
+└── Nama_Orang_2/
+    └── foto1.jpg
+Format gambar yang didukung: .jpg, .jpeg, .png, .bmp
+
+🚀 Cara Menjalankan
+Via GUI (disarankan)
+bashpython gui.py
+Via terminal
+bashpython main.py
+
+🖥️ Cara Penggunaan GUI
+LangkahTombolKeterangan1Choose Dataset FolderPilih folder dataset wajah2Train ModelTraining eigenface dari dataset3Upload Test ImagePilih foto wajah yang ingin dikenali4Recognize FaceCocokkan wajah dengan dataset
+Hasil ditampilkan berupa:
+
+Foto test dan foto paling mirip dari dataset berdampingan
+Persentase kemiripan (0% — 100%)
+Nama orang, jarak Euclidean, dan status dikenali / tidak dikenali
+
+
+🔬 Alur Algoritma Training (7 Langkah)
+[1] Load gambar dari dataset
+         │  load_images_from_folder()
+         ▼
+[2] Hitung Mean Face
+         │  hitung_mean_face()  →  rata-rata tiap pixel
+         ▼
+[3] Normalisasi / Centering
+         │  kurangi_mean()  →  gambar dikurangi mean face
+         ▼
+[4] Hitung Covariance Matrix
+         │  hitung_covariance_matrix()  →  C = A × Aᵀ  (trik Turk & Pentland)
+         ▼
+[5] Hitung Eigenvalue & Eigenvector  ← MANUAL
+         │  power_iteration() + deflasi_matrix()
+         ▼
+[6] Bentuk Eigenface
+         │  bentuk_eigenfaces()  →  konversi ke ruang gambar (D dimensi)
+         ▼
+[7] Proyeksi Semua Training Image
+         │  proyeksi_gambar()  →  koordinat ringkas tiap gambar
+         ▼
+    Simpan ke cache (.pkl)
+Alur Pencocokan Wajah
+Gambar Test
+     │  preprocessing_gambar()  →  grayscale + resize + flatten
+     ▼
+Kurangi Mean Face
+     ▼
+Proyeksikan ke Ruang Eigenface
+     ▼
+Hitung Jarak Euclidean ke Semua Training Image  ← MANUAL
+     ▼
+Ambil Jarak Terkecil
+     ▼
+Bandingkan dengan Threshold
+     ├── jarak ≤ threshold  →  DIKENALI ✓  (tampilkan nama + persentase)
+     └── jarak > threshold  →  TIDAK DIKENALI ✗
