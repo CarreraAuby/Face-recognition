@@ -1,8 +1,9 @@
 <p align="center">
   <img src="Logo uns.png" alt="Logo UNS" width="250"/>
 </p>
-<h1 align="center">Projek Aljabar Linear
-<h2 align="center"> Face Recognition — Eigenface Method</h2>
+Projek Aljabar Linear
+<h1 align="center"> Projek Aljabar Linear
+  Face Recognition — Eigenface Method</h1>
 
 <p align="center">
   <strong>Kelompok 2 <br> informatika D <br> Universitas Sebelas Maret</strong>
