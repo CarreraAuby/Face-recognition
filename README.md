@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="Logo uns.png" alt="Logo UNS" width="120"/>
+</p>
+
 <h1 align="center"> Full Face Recognition — Eigenface Method</h1>
 
 <p align="center">
