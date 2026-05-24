@@ -7,7 +7,7 @@
 <p align="center">
   <strong>Kelompok 2 <br> informatika D <br> Universitas Sebelas Maret</strong>
 </p>
-
+<p align="center">
 ---
 ## 👥 Anggota Kelompok
 | NIM        | NAMA                           |
@@ -19,6 +19,7 @@
 **Dosen Pengampu:** Drs. Bambang Harjito, M.App.Sc., Ph.D.
 
 ---
+</p>
 
 ## 🧑‍💻 Deskripsi Program
 Sistem Pengenalan Wajah (*Face Recognition*) modern yang dibangun menggunakan implementasi murni konsep **Aljabar Linear**, khususnya **Principal Component Analysis (PCA)** dan **Eigenface**. Proyek ini dilengkapi dengan antarmuka grafis (GUI) berbasis `tkinter` yang interaktif, performa pencocokan berbasis *Cosine Similarity*, sistem *caching* data latih, serta fitur **Threshold Dinamis** untuk menguji akurasi klasifikasi secara *real-time*.
