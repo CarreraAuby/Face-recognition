@@ -169,3 +169,6 @@ model = jalankan_training(paksa_ulang=True)
 | `opencv-python` | Preprocessing gambar |
 
 ---
+## Dokumentasi Program
+
+https://youtu.be/LINK_YOUTUBE_KAMU
