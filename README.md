@@ -112,18 +112,60 @@ project_eigenface/
     ├── trainer.py           # Pipeline training 7 langkah
     └── recognizer.py        # Pipeline pencocokan wajah
 ```
-## 🚀 Cara Menjalankan
-
-### Via GUI (disarankan)
+## Instalasi
 
 ```bash
-python gui.py
+pip install customtkinter pillow numpy opencv-python
 ```
 
-### Via terminal
+Siapkan folder `dataset/` — nama subfolder = nama orang, isi folder = foto-fotonya.
+Format yang didukung: `.jpg`, `.jpeg`, `.png`, `.bmp`
+
+---
+
+## Cara Menjalankan
 
 ```bash
+# Via GUI
+python gui.py
+
+# Via terminal
 python main.py
 ```
+
+**Urutan penggunaan GUI:**
+1. **Choose Dataset Folder** — pilih folder dataset
+2. **Train Model** — training eigenface dari dataset
+3. **Upload Test Image** — pilih foto yang ingin dikenali
+4. **Recognize Face** — lihat hasil perbandingan dan persentase kemiripan
+
+---
+
+## Konfigurasi
+
+Edit di `main.py`:
+
+```python
+DATASET_FOLDER   = "dataset"         # path folder dataset
+JUMLAH_KOMPONEN  = 50                # jumlah eigenface (30–100 disarankan)
+THRESHOLD        = 8000              # batas jarak pencocokan
+CACHE_FILE       = "model_cache.pkl"
+```
+
+Untuk training ulang setelah dataset diperbarui:
+```python
+model = jalankan_training(paksa_ulang=True)
+```
+
+---
+
+## Dependencies
+
+| Library | Kegunaan |
+|---------|----------|
+| `customtkinter` | Antarmuka grafis |
+| `Pillow` | Baca & tampilkan gambar |
+| `numpy` | Operasi matriks & array |
+| `opencv-python` | Preprocessing gambar |
 
 ---
