@@ -170,8 +170,7 @@ model = jalankan_training(paksa_ulang=True)
 
 ---
 ## Dokumentasi Program
-
-https://youtu.be/LINK_YOUTUBE_KAMU
+https://youtu.be/VjvgiU3_KBg
 
 ## Github
 https://github.com/CarreraAuby/Face-recognition
