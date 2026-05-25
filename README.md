@@ -97,7 +97,7 @@ similarity = max(0, (1 - d/threshold) × 100) %
 ## 🗂️ Struktur Folder
 
 ```
-project_eigenface/
+Face_Recognition
 ├── main.py                  # File utama, hubungkan semua modul
 ├── gui.py                   # Antarmuka grafis (CustomTkinter)
 ├── model_cache.pkl          # Cache model hasil training (auto-generated)
